@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Profile Management Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Role Profile Portal</h1>
+            <p>Create role profiles and assign team members</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('create')">Create Role Profile</button>
+            <button class="nav-tab" onclick="switchTab('assign')">Assign People</button>
+            <button class="nav-tab" onclick="switchTab('view')">View Profiles</button>
+        </div>
+
+        <div id="create-tab" class="tab-content active">
+            <div class="success-message" id="create-success">
+                Role profile created successfully! 🎉
+            </div>
+            
+            <form id="profile-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="roleName">Role/Team Name *</label>
+                        <input type="text" id="roleName" name="roleName" required placeholder="e.g., UI Team, Backend Team, Marketing">
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department *</label>
+                        <select id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="design">Design</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="sales">Sales</option>
+                            <option value="hr">Human Resources</option>
+                            <option value="finance">Finance</option>
+                            <option value="operations">Operations</option>
+                            <option value="product">Product</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Priority Level</label>
+                        <select id="priority" name="priority">
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="active">Active</option>
+                            <option value="recruiting">Recruiting</option>
+                            <option value="filled">Filled</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="requiredSkills">Required Skills</label>
+                        <input type="text" id="requiredSkills" name="requiredSkills" placeholder="e.g., React, Node.js, TypeScript">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamLead">Team Lead/Manager</label>
+                        <input type="text" id="teamLead" name="teamLead" placeholder="Name of team lead">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Role Description *</label>
+                    <textarea id="description" name="description" required placeholder="Describe the role, responsibilities, and what kind of people you're looking for..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="expectations">Expectations & Goals</label>
+                    <textarea id="expectations" name="expectations" placeholder="What are the key objectives and expectations for this role?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    ✨ Create Role Profile
+                </button>
+            </form>
+        </div>
+
+        <div id="assign-tab" class="tab-content">
+            <div class="success-message" id="assign-success">
+                Person assigned successfully! 👥
+            </div>
+            
+            <form id="assignment-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="selectRole">Select Role Profile *</label>
+                        <select id="selectRole" name="selectRole" required>
+                            <option value="">Choose a role profile</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="personName">Person's Name *</label>
+                        <input type="text" id="personName" name="personName" required placeholder="Full name of the person">
+                    </div>
+                    <div class="form-group">
+                        <label for="personEmail">Email</label>
+                        <input type="email" id="personEmail" name="personEmail" placeholder="person@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="roleType">Role Type</label>
+                        <select id="roleType" name="roleType">
+                            <option value="member">Team Member</option>
+                            <option value="lead">Team Lead</option>
+                            <option value="senior">Senior Member</option>
+                            <option value="junior">Junior Member</option>
+                            <option value="contractor">Contractor</option>
+                            <option value="intern">Intern</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" name="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="personSkills">Skills/Expertise</label>
+                        <input type="text" id="personSkills" name="personSkills" placeholder="Their key skills and expertise">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assignmentNotes">Assignment Notes</label>
+                    <textarea id="assignmentNotes" name="assignmentNotes" placeholder="Any additional notes about this assignment..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    👥 Assign Person to Role
+                </button>
+            </form>
+        </div>
+
+        <div id="view-tab" class="tab-content">
+            <div class="search-bar">
+                <input type="text" id="searchProfiles" placeholder="Search role profiles by name, department, or skills...">
+            </div>
+            
+            <div id="profiles-container" class="profile-grid">
+                <div class="empty-state">
+                    <h3>No Role Profiles Yet</h3>
+                    <p>Create your first role profile to get started!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assignment Modal -->
+    <div id="assignment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Role Profile Details</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="assignment-details"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
