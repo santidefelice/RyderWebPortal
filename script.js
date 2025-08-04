@@ -16,7 +16,6 @@ let assignments = [];
                     id: 1,
                     roleName: 'UI/UX Team',
                     department: 'design',
-                    priority: 'high',
                     status: 'active',
                     requiredSkills: 'Figma, Adobe XD, React, CSS, User Research',
                     teamLead: 'Sarah Johnson',
@@ -27,7 +26,6 @@ let assignments = [];
                     id: 2,
                     roleName: 'Backend API Team',
                     department: 'engineering',
-                    priority: 'high',
                     status: 'recruiting',
                     requiredSkills: 'Node.js, Python, PostgreSQL, Docker, AWS',
                     teamLead: 'Mike Chen',
@@ -38,7 +36,6 @@ let assignments = [];
                     id: 3,
                     roleName: 'Marketing Analytics',
                     department: 'marketing',
-                    priority: 'medium',
                     status: 'filled',
                     requiredSkills: 'Google Analytics, SQL, Python, Tableau, A/B Testing',
                     teamLead: 'Jessica Williams',
@@ -135,7 +132,6 @@ let assignments = [];
                 id: Date.now(),
                 roleName: formData.get('roleName'),
                 department: formData.get('department'),
-                priority: formData.get('priority'),
                 status: formData.get('status'),
                 requiredSkills: formData.get('requiredSkills'),
                 teamLead: formData.get('teamLead'),
@@ -145,13 +141,8 @@ let assignments = [];
 
             roleProfiles.push(profile);
             
-            // Reset form
             document.getElementById('profile-form').reset();
-            
-            // Show success message
             showSuccessMessage('create-success');
-            
-            // Update views
             renderProfiles();
             updateRoleSelect();
         }
@@ -223,7 +214,6 @@ let assignments = [];
             </div>
             
             <div class="profile-details">
-                <p><strong>Priority:</strong> ${profile.priority.toUpperCase()}</p>
                 ${profile.teamLead ? `<p><strong>Team Lead:</strong> ${profile.teamLead}</p>` : ''}
                 ${profile.requiredSkills ? `<p><strong>Required Skills:</strong> ${profile.requiredSkills}</p>` : ''}
                 <p><strong>Description:</strong> ${profile.description.substring(0, 100)}${profile.description.length > 100 ? '...' : ''}</p>
@@ -275,7 +265,6 @@ let assignments = [];
                 <div style="margin-bottom: 20px;">
                     <h4>${profile.roleName}</h4>
                     <p><strong>Department:</strong> ${formatDepartment(profile.department)}</p>
-                    <p><strong>Priority:</strong> <span style="color: ${getPriorityColor(profile.priority)}">${profile.priority.toUpperCase()}</span></p>
                     <p><strong>Status:</strong> <span class="status-badge status-${profile.status}">${profile.status.toUpperCase()}</span></p>
                     ${profile.teamLead ? `<p><strong>Team Lead:</strong> ${profile.teamLead}</p>` : ''}
                     ${profile.requiredSkills ? `<p><strong>Required Skills:</strong> ${profile.requiredSkills}</p>` : ''}
